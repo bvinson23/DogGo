@@ -31,9 +31,8 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT o.Id, o.[Name], o.Email, o.NeighborhoodId, o.Address, o.Phone, d.Name as DogName
+                        SELECT o.Id, o.[Name], o.Email, o.NeighborhoodId, o.Address, o.Phone
                         FROM Owner o
-                        JOIN Dog d on d.OwnerId = o.Id
                     ";
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -71,9 +70,11 @@ namespace DogGo.Repositories
                     cmd.CommandText = @"
                         SELECT o.Id, o.[Name], o.Email, o.NeighborhoodId, o.Address, o.Phone, d.Name as DogName
                         FROM Owner o
-                        JOIN Dog d on d.OwnerId = o.Id
+                        LEFT JOIN Dog d on d.OwnerId = o.Id
+                        WHERE o.Id = @id
                     ";
 
+                    List<Dog> dogs = new List<Dog>();
                     cmd.Parameters.AddWithValue("@id", id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -87,9 +88,13 @@ namespace DogGo.Repositories
                             Email = reader.GetString(reader.GetOrdinal("Email")),
                             NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
                             Address = reader.GetString(reader.GetOrdinal("Address")),
-                            Phone = reader.GetString(reader.GetOrdinal("Phone")),
-                            List < Dog > dogs = new List<Dog>()
+                            Phone = reader.GetString(reader.GetOrdinal("Phone"))
                         };
+                        Dog dog = new Dog
+                        {
+                            Name = reader.GetString(reader.GetOrdinal("DogName"))
+                        };
+                        owner.Dogs.Add(dog);
 
                         reader.Close();
                         return owner;
