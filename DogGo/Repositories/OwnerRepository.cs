@@ -31,8 +31,9 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name], Email, NeighborhoodId, Address, Phone
-                        FROM Owner
+                        SELECT o.Id, o.[Name], o.Email, o.NeighborhoodId, o.Address, o.Phone, d.Name as DogName
+                        FROM Owner o
+                        JOIN Dog d on d.OwnerId = o.Id
                     ";
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -68,9 +69,9 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name], Email, NeighborhoodId, Address, Phone
-                        FROM Owner
-                        WHERE Id = @id
+                        SELECT o.Id, o.[Name], o.Email, o.NeighborhoodId, o.Address, o.Phone, d.Name as DogName
+                        FROM Owner o
+                        JOIN Dog d on d.OwnerId = o.Id
                     ";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -86,7 +87,8 @@ namespace DogGo.Repositories
                             Email = reader.GetString(reader.GetOrdinal("Email")),
                             NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
                             Address = reader.GetString(reader.GetOrdinal("Address")),
-                            Phone = reader.GetString(reader.GetOrdinal("Phone"))
+                            Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                            List < Dog > dogs = new List<Dog>()
                         };
 
                         reader.Close();
