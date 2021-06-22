@@ -45,8 +45,9 @@ namespace DogGo.Repositories
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             Breed = reader.GetString(reader.GetOrdinal("Breed")),
-                            Notes = reader.GetString(reader.GetOrdinal("Notes")),
-                            ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl"))
+                            OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
+                            //Notes = reader.GetString(reader.GetOrdinal("Notes")),
+                            //ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl"))
                         };
 
                         dogs.Add(dog);
@@ -67,7 +68,7 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name], Breed, Notes, ImageUrl
+                        SELECT Id, [Name], Breed, Notes, ImageUrl, OwnerId
                         FROM Dog
                         WHERE Id = @id
                     ";
@@ -83,8 +84,9 @@ namespace DogGo.Repositories
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             Breed = reader.GetString(reader.GetOrdinal("Breed")),
-                            Notes = reader.GetString(reader.GetOrdinal("Notes")),
-                            ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl"))
+                            OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
+                            //Notes = reader.GetString(reader.GetOrdinal("Notes")),
+                            //ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl"))
                         };
 
                         reader.Close();
