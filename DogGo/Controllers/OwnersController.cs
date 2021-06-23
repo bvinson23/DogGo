@@ -89,56 +89,59 @@ namespace DogGo.Controllers
         // GET: OwnersController/Edit/5
         public ActionResult Edit(int id)
         {
+            List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
+
             Owner owner = _ownerRepo.GetOwnerById(id);
 
-            if (owner == null)
+            OwnerFormViewModel vm = new OwnerFormViewModel()
             {
-                return NotFound();
-            }
+                Owner = owner,
+                Neighborhoods = neighborhoods
+            };
 
+            return View(vm);
+    }
+
+    // POST: OwnersController/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult Edit(int id, Owner owner)
+    {
+        try
+        {
+            _ownerRepo.UpdateOwner(owner);
+
+            return RedirectToAction("Index");
+        }
+        catch
+        {
             return View(owner);
-        }
-
-        // POST: OwnersController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Owner owner)
-        {
-            try
-            {
-                _ownerRepo.UpdateOwner(owner);
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(owner);
-            }
-        }
-
-        // GET: OwnersController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            Owner owner = _ownerRepo.GetOwnerById(id);
-
-            return View(owner);
-        }
-
-        // POST: OwnersController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Owner owner)
-        {
-            try
-            {
-                _ownerRepo.DeleteOwner(id);
-
-                return RedirectToAction("Index");
-            }
-            catch(Exception ex)
-            {
-                return View(owner);
-            }
         }
     }
+
+    // GET: OwnersController/Delete/5
+    public ActionResult Delete(int id)
+    {
+        Owner owner = _ownerRepo.GetOwnerById(id);
+
+        return View(owner);
+    }
+
+    // POST: OwnersController/Delete/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult Delete(int id, Owner owner)
+    {
+        try
+        {
+            _ownerRepo.DeleteOwner(id);
+
+            return RedirectToAction("Index");
+        }
+        catch (Exception ex)
+        {
+            return View(owner);
+        }
+    }
+}
 }
