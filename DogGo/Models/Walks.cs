@@ -13,5 +13,6 @@ namespace DogGo.Models
         public int Duration { get; set; }
         public int DogId { get; set; }
         public Dog Dog { get; set; }
+        public Owner Client { get; set; }
     }
 }
