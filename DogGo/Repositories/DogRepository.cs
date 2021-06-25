@@ -217,12 +217,14 @@ namespace DogGo.Repositories
                                 [Name] = @name, 
                                 Breed = @breed, 
                                 Notes = @notes, 
-                                ImageUrl = @imageUrl, 
+                                OwnerId = @ownerId,
+                                ImageUrl = @imageUrl 
                             WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@name", dog.Name);
+                    cmd.Parameters.AddWithValue("@id", dog.Id);
                     cmd.Parameters.AddWithValue("@breed", dog.Breed);
-                    cmd.Parameters.AddWithValue("@notes", dog.Notes);
+                    cmd.Parameters.AddWithValue("@ownerId", dog.OwnerId);
                     if (dog.Notes != null)
                     {
                         cmd.Parameters.AddWithValue("@notes", dog.Notes);
