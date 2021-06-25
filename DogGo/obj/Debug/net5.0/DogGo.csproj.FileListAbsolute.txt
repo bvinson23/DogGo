@@ -437,3 +437,4 @@ C:\Users\brand\workspace\csharp\DogGo\DogGo\obj\Debug\net5.0\Razor\Views\Dogs\Ed
 C:\Users\brand\workspace\csharp\DogGo\DogGo\obj\Debug\net5.0\Razor\Views\Dogs\Delete.cshtml.g.cs
 C:\Users\brand\workspace\csharp\DogGo\DogGo\obj\Debug\net5.0\Razor\Views\Walks\Create.cshtml.g.cs
 C:\Users\brand\workspace\csharp\DogGo\DogGo\obj\Debug\net5.0\Razor\Views\Walks\Index.cshtml.g.cs
+C:\Users\brand\workspace\csharp\DogGo\DogGo\obj\Debug\net5.0\Razor\Views\Owners\Login.cshtml.g.cs

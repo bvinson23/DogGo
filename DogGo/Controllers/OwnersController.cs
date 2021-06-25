@@ -147,11 +147,13 @@ namespace DogGo.Controllers
             }
         }
 
+        // GET: OwnersController/Login
         public ActionResult Login()
         {
             return View();
         }
 
+        // POST: OwnersController/Login
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel viewModel)
         {
